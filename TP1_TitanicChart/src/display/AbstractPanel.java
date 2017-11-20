@@ -1,8 +1,14 @@
 package display;
 
+import dataHandling.Data;
+
 import javax.swing.*;
 
-public abstract class AbstractPanel extends JPanel {
+public class AbstractPanel extends JPanel {
 
+    protected Data data = new Data();
 
+    public AbstractPanel() {
+        data.importPassengersFromFile("res/titanic.dbf");
+    }
 }

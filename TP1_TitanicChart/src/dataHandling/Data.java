@@ -10,6 +10,10 @@ public class Data {
 
     private ArrayList<Passenger> passengers = new ArrayList<>();
 
+    public ArrayList<Passenger> getPassengers() {
+        return passengers;
+    }
+
     public void importPassengersFromFile(String path) {
         String data = getDataFromFile(path);
 
@@ -55,7 +59,7 @@ public class Data {
     public void display() {
         for(Passenger passenger : passengers) {
             System.out.println(passenger.getId() + " " +  passenger.getGender() + " " + passenger.getTravelingClass()
-                                + " " + passenger.isAdult() +  " " +passenger.isSurvivor());
+                                + " " + passenger.getAge() +  " " +passenger.isSurvivor());
         }
     }
 }
