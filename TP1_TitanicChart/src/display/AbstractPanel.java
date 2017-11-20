@@ -1,4 +1,8 @@
 package display;
 
-public class AbstractPanel {
+import javax.swing.*;
+
+public abstract class AbstractPanel extends JPanel {
+
+
 }
