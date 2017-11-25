@@ -5,7 +5,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-        new Windows();
-
+        Data data = new Data();
+        data.importPassengersFromFile("res/titanic.dbf");
+        new Windows(data);
     }
 }

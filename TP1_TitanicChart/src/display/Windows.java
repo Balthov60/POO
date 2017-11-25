@@ -1,10 +1,6 @@
 package display;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot3D;
-import org.jfree.data.general.DefaultPieDataset;
+import dataHandling.Data;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,24 +9,24 @@ import java.awt.event.ActionListener;
 public class Windows extends JFrame implements ActionListener {
 
     private JMenuBar menuBar;
-
     private JMenuItem pieChart;
     private JMenuItem barChart;
     private JMenuItem multibarChart;
 
-    private AbstractPanel panel;
+    private Data data;
 
-    public Windows() {
-        this.setTitle("Titanic Chart");
+    public Windows(Data data) {
+        this.setTitle("Titanic ChartHandler");
         this.setSize(400, 400);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        this.data = data;
 
         initComponent();
         setJMenuBar(menuBar);
 
         this.setVisible(true);
     }
-
     private void initComponent() {
         menuBar = new JMenuBar();
         JMenu display = new JMenu("Affichage");
@@ -48,26 +44,22 @@ public class Windows extends JFrame implements ActionListener {
         multibarChart.addActionListener(this);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == pieChart) {
-            panel = new PieChart();
-            this.getContentPane().removeAll();
-            this.getContentPane().add(panel);
-            this.pack();
+            displayChart(new Pie(data));
         }
         else if (e.getSource() == barChart) {
-            panel = new BarChart();
-            this.getContentPane().removeAll();
-            this.getContentPane().add(panel);
-            this.pack();
+            displayChart(new Bar(data));
         }
         else if (e.getSource() == multibarChart) {
-            panel = new MultibarChart();
-            this.getContentPane().removeAll();
-            this.getContentPane().add(panel);
-            this.pack();
+            displayChart(new Multibar(data));
         }
+    }
+
+    private void displayChart(AbstractChartPanel chart) {
+        this.getContentPane().removeAll();
+        this.getContentPane().add(chart);
+        this.pack();
     }
 }

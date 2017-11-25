@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Data {
@@ -56,10 +58,72 @@ public class Data {
         passengers.add(passenger);
     }
 
-    public void display() {
-        for(Passenger passenger : passengers) {
-            System.out.println(passenger.getId() + " " +  passenger.getGender() + " " + passenger.getTravelingClass()
-                                + " " + passenger.getAge() +  " " +passenger.isSurvivor());
+    public Map<Gender, Integer> getQuantityForEachGender() {
+        Map<Gender, Integer> quantityForEachGender = new HashMap<>();
+        Gender gender;
+
+        for (Passenger passenger : getPassengers()) {
+            gender = passenger.getGender();
+
+            quantityForEachGender.put(gender, quantityForEachGender.getOrDefault(gender, 0) + 1);
         }
+
+        return quantityForEachGender;
+    }
+    public Map<TravelingClass, Integer> getQuantityForEachTravelingClasses() {
+        Map<TravelingClass, Integer> quantityForEachTravelingClasses = new HashMap<>();
+        TravelingClass travelingClass;
+
+        for (Passenger passenger : getPassengers()) {
+            travelingClass = passenger.getTravelingClass();
+
+            int count = quantityForEachTravelingClasses.getOrDefault(travelingClass, 0);
+            quantityForEachTravelingClasses.put(travelingClass, count + 1);
+        }
+
+        return quantityForEachTravelingClasses;
+    }
+    public Map<TravelingClass, Integer> getSurvivorQuantityForEachTravelingClasses() {
+        Map<TravelingClass, Integer> quantityForEachTravelingClasses = new HashMap<>();
+        TravelingClass travelingClass;
+
+        for (Passenger passenger : getPassengers()) {
+            if (passenger.isSurvivor()) {
+                travelingClass = passenger.getTravelingClass();
+
+                int count = quantityForEachTravelingClasses.getOrDefault(travelingClass, 0);
+                quantityForEachTravelingClasses.put(travelingClass, count + 1);
+            }
+        }
+
+        return quantityForEachTravelingClasses;
+    }
+    public Map<Ages, Integer> getQuantityForEachAges() {
+        Map<Ages, Integer> quantityForEachTravelingClasses = new HashMap<>();
+        Ages age;
+
+        for (Passenger passenger : getPassengers()) {
+            age = passenger.getAge();
+
+            int count = quantityForEachTravelingClasses.getOrDefault(age, 0);
+            quantityForEachTravelingClasses.put(age, count + 1);
+        }
+
+        return quantityForEachTravelingClasses;
+    }
+    public Map<Ages, Integer> getSurvivorQuantityForEachAges() {
+        Map<Ages, Integer> quantityForEachTravelingClasses = new HashMap<>();
+
+        Ages age;
+        for (Passenger passenger : getPassengers()) {
+            if (passenger.isSurvivor()) {
+                age = passenger.getAge();
+
+                int count = quantityForEachTravelingClasses.getOrDefault(age, 0);
+                quantityForEachTravelingClasses.put(age, count + 1);
+            }
+        }
+
+        return quantityForEachTravelingClasses;
     }
 }
