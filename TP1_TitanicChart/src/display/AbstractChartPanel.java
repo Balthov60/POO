@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public abstract class AbstractChartPanel extends JPanel {
 
-    protected Data data;
+    protected final Data data;
 
     public AbstractChartPanel(Data data) {
         this.data = data;

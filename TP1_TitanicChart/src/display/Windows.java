@@ -13,7 +13,7 @@ public class Windows extends JFrame implements ActionListener {
     private JMenuItem barChart;
     private JMenuItem multibarChart;
 
-    private Data data;
+    private final Data data;
 
     public Windows(Data data) {
         this.setTitle("Titanic ChartHandler");

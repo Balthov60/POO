@@ -14,10 +14,10 @@ import java.util.Map;
 
 public class Multibar extends AbstractChartPanel {
 
-    private static int CHART_COUNT = 4;
+    private static final int CHART_COUNT = 4;
 
     private DefaultCategoryDataset[] datasets;
-    private JFreeChart[] charts = new JFreeChart[CHART_COUNT];
+    private final JFreeChart[] charts = new JFreeChart[CHART_COUNT];
 
     public Multibar(Data data) {
         super(data);

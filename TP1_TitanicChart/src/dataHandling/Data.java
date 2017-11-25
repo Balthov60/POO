@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class Data {
 
-    private ArrayList<Passenger> passengers = new ArrayList<>();
+    private final ArrayList<Passenger> passengers = new ArrayList<>();
 
     public ArrayList<Passenger> getPassengers() {
         return passengers;
