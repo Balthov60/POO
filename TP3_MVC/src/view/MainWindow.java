@@ -3,10 +3,10 @@ package view;
 import controller.AddNewEntryController;
 import controller.RemoveFromFormController;
 import controller.RemoveFromListController;
+import javafx.scene.control.Alert;
 import model.Promotion;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class MainWindow extends JFrame{
 
@@ -24,7 +24,8 @@ public class MainWindow extends JFrame{
         this.promotion = promotion;
         
         //vue formulaire
-        form=new VueFormulaire(new RemoveFromFormController(promotion), new AddNewEntryController(promotion));
+        form=new VueFormulaire(new RemoveFromFormController(promotion, this),
+                               new AddNewEntryController(promotion, this));
         this.add(form);
         form.setTitle("Saisie d'étudiants");
         form.setVisible(true);
@@ -57,5 +58,9 @@ public class MainWindow extends JFrame{
          //taille de la fenetre
         this.setSize(camemb.getWidth()+histo.getWidth()+liste.getWidth(), form.getHeight()+camemb.getHeight()+55);
 
+    }
+
+    public void displayError(String error) {
+        JOptionPane.showMessageDialog(this, error);
     }
 }
