@@ -13,13 +13,12 @@ public class Mvc {
 
     public static void main(String[] args) {
         Promotion promotion = new Promotion();
-        promotion.loadFileCSV("data/promoDUT.csv");
 
         MainWindow fen=new MainWindow(promotion);
 
-        promotion.ajoutEtudiant(new Etudiant("test", "test", "test", "test", "test"));
-
         fen.setVisible(true);
+
+        promotion.loadFileCSV("data/promoDUT.csv");
     }
     
 }

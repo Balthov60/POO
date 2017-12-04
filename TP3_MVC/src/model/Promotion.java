@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Observable;
 
 public class Promotion extends Observable {
@@ -22,8 +23,15 @@ public class Promotion extends Observable {
     public void supressionEtudiant(Etudiant etudiant) {
         if (etudiants.contains(etudiant))
             etudiants.remove(etudiant);
+
+        setChanged();
+        notifyObservers();
     }
-    public Etudiant rechercheEtudiant(String name) {
+    public Etudiant rechercheEtudiant(String id) {
+        for (Etudiant etudiant : etudiants) {
+            if (Objects.equals(etudiant.getId(), id))
+                return etudiant;
+        }
         return null;
     }
 

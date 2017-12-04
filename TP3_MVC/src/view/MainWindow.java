@@ -1,5 +1,8 @@
 package view;
 
+import controller.AddNewEntryController;
+import controller.RemoveFromFormController;
+import controller.RemoveFromListController;
 import model.Promotion;
 
 import javax.swing.JDesktopPane;
@@ -21,7 +24,7 @@ public class MainWindow extends JFrame{
         this.promotion = promotion;
         
         //vue formulaire
-        form=new VueFormulaire();
+        form=new VueFormulaire(new RemoveFromFormController(promotion), new AddNewEntryController(promotion));
         this.add(form);
         form.setTitle("Saisie d'étudiants");
         form.setVisible(true);
@@ -44,7 +47,7 @@ public class MainWindow extends JFrame{
         promotion.addObserver(histo);
 
         //vue liste
-        liste=new VueListe();
+        liste=new VueListe(new RemoveFromListController(promotion));
         this.add(liste);
         liste.setTitle("Liste des étudiants");
         liste.setLocation(camemb.getWidth()+histo.getWidth(), 0);

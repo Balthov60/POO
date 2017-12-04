@@ -1,7 +1,13 @@
 package view;
 
+import controller.AddNewEntryController;
+import controller.RemoveFromFormController;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -9,10 +15,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class VueFormulaire extends AbstractVue {
+public class VueFormulaire extends AbstractVue implements ActionListener {
 
-    private final JTextField txtNumeroAjout = new JTextField(10);
     private final JTextField txtNumeroSuppr = new JTextField(10);
+    private final JTextField txtNumeroAjout = new JTextField(10);
     private final JTextField txtNom = new JTextField(10);
     private final JTextField txtPrenom = new JTextField(10);
     private final JComboBox boxBac = new JComboBox();
@@ -25,11 +31,16 @@ public class VueFormulaire extends AbstractVue {
     private final JLabel lblDpt = new JLabel("Dpt:");
     private final JLabel lblPartieAjout = new JLabel("Ajout d'un étudiant");
     private final JLabel lblPartieSuppr = new JLabel("Suppression d'un étudiant:");
-    private final JLabel lblSeparation = new JLabel("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     private final JButton btAjout = new JButton("Ajout");
     private final JButton btSuppr = new JButton("Supprimer");
+
+    RemoveFromFormController removeFromFormController;
+    AddNewEntryController addNewEntryController;
     
-    public VueFormulaire() {
+    public VueFormulaire(RemoveFromFormController removeFromFormController, AddNewEntryController addNewEntryController) {
+        this.removeFromFormController = removeFromFormController;
+        this.addNewEntryController = addNewEntryController;
+
         //remplissage des box
         boxDpt.addItem("- - -");
         for (int i = 1; i < 96; i++) {
@@ -119,6 +130,27 @@ public class VueFormulaire extends AbstractVue {
         gc.gridy = 6;
         this.add(btSuppr, gc);
         this.pack();
+
+        btSuppr.addActionListener(this);
+        btAjout.addActionListener(this);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        ArrayList<String> data = new ArrayList<>();
+
+        if (e.getSource() == btSuppr) {
+            data.add(txtNumeroSuppr.getText());
+            removeFromFormController.control(data);
+        }
+        else if (e.getSource() == btAjout) {
+            data.add(txtNumeroAjout.getText());
+            data.add(txtNom.getText());
+            data.add(txtPrenom.getText());
+            data.add(boxDpt.getSelectedItem().toString());
+            data.add(boxBac.getSelectedItem().toString());
+
+            addNewEntryController.control(data);
+        }
+    }
 }
