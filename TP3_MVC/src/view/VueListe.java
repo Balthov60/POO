@@ -1,20 +1,24 @@
 package view;
 
+import model.Promotion;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 
-public class VueListe extends AbstractVue {
+public class VueListe extends AbstractVue implements Observer {
 
     private final JList liste;
     private final JButton btSuppr = new JButton("Supprimer");
 
-    private  String [] listEcrivains = {"Louis Ferdinand Céline","Marcel Proust","JD Salinger","Apollinaire","Fédor Dostoievski","Victor Hugo","Balzac","André Gide","Rabelais","Arthur Rimbaud"};
+    private  String [] list = {"Louis Ferdinand Céline","Marcel Proust","JD Salinger","Apollinaire","Fédor Dostoievski","Victor Hugo","Balzac","André Gide","Rabelais","Arthur Rimbaud"};
 
     public VueListe() {
         liste = new JList();
@@ -38,8 +42,13 @@ public class VueListe extends AbstractVue {
 
     private void remplissageListe() {
         liste.removeAll();
-        liste.setListData(listEcrivains);
-//        this.pack();
+        liste.setListData(list);
+        this.pack();
     }
-    
+
+    @Override
+    public void update(Observable o, Object arg) {
+        list = ((Promotion) o).getListOfStudent();
+        remplissageListe();
+    }
 }
